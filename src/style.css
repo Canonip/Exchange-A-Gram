@@ -1,0 +1,33 @@
+#webcam {
+    width: 800px;
+    height: 480px;
+    background-color: #666;
+}
+
+#picture {
+    width: 800px;
+    height: 480px;
+    background-color: #666;
+}
+
+.color-input {
+	margin-bottom: 0;
+}
+#download-button {
+	display: none;
+}
+#page {
+	margin-top: 2em;
+	/*max-width: 640px;*/
+	padding: 0;
+}
+
+#colors {
+	padding-left: 0;
+	padding-right:0;
+	padding: 0;
+}
+
+.fullscreenButton {
+	width: inherit;
+}

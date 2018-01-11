@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Exchange-a-gram</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon"> 
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    
+	<!-- Milligram.io -->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+	<link rel="stylesheet" href="https://cdn.rawgit.com/necolas/normalize.css/master/normalize.css">
+	<link rel="stylesheet" href="https://cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css">
+	<link rel="stylesheet" href="style.css"/>
+
+  </head>
+  <body>
+	<div class="container" id="page">
+		<h1>Exchange-a-gram</h1>
+		<h2>not an Instagram clone</h2>
+		<video id="webcam"></video>
+		<br />
+		<button class="button fullscreenButton" onclick="pic.takePicture(document.getElementById('webcam'));">Take Picture</button>
+		<br />
+		<canvas id="picture"></canvas>
+		<br />
+		<div class="container" id="colors">
+			<h4>Change Color of Picture</h4>
+			<!-- <label for="colorEnabled">Enable</label> -->
+			<input id="colorEnabled" class="color-input" type="checkbox" onchange="changeColor()" checked>Enable</input>
+			<label for="color">Color</label>
+			<input id="color" class="color-input" type="color" onchange="changeColor()"></input>
+			<label for="alpha">Transparancy</label>
+			<input id="alpha" class="color-input" type="range" min="0" max="1" step="0.01" onchange="changeColor()" value="0"></input>
+			<a class="button" id="download-button" href="#" download>Download Picture</a>
+
+		</div>
+	</div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <!--
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+    -->
+	<script src="capture-video-frame.js"></script>
+	<script src="script.js"></script>
+
+  </body>
+</html>
