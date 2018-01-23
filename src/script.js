@@ -22,6 +22,41 @@ function main() {
 	ctx.textAlign = 'center';
 	ctx.fillStyle = 'black';
 	ctx.fillText('Please take a picture :)', x, y);
+	
+	if(!pic.img) {
+		$('#picture')[0].style.display = "none";
+		$('#colors')[0].style.display = "none";
+	} else {
+		$('#picture')[0].style.display = "inline";
+		$('#colors')[0].style.display = "inline";
+
+	}
+	
+	//Add Event Listener for Device Orientation
+	if (window.DeviceOrientationEvent) {
+		
+		window.addEventListener("deviceorientation", function(event) 
+		{
+			var accelColor = $('#colorModeAccelerometer')[0].checked;
+			if (!accelColor) return;
+			var hue = Math.round(event.alpha);
+			if (hue < 0) hue = 360 + hue;
+			hue = hue % 360;
+			var saturation = Math.round(map_range(event.gamma, -90, 90, 0, 100)); //-90 - 90
+			var lightness = Math.round(map_range(event.beta, -180, 180, 0, 100)); //-180 - 180
+			var alpha = $('#alpha')[0].value;
+			
+			var colorEnabled = $('#colorEnabled')[0].checked;
+			var color = colorEnabled ? "hsla(" + hue + "," + saturation + "%," + lightness + "%," + alpha + ")" : "rgba(0,0,0,0)";
+			var canvas = setColor(color);
+			
+			var dlButton = $('#download-button')[0];
+			dlButton.href = canvas.toDataURL('image/jpeg');
+			dlButton.style.display = 'block';
+		}, true);
+		
+		
+	}
 }
  
 function handleVideo(stream) {
@@ -38,6 +73,7 @@ function handleVideo(stream) {
 	
     video.src = window.URL.createObjectURL(stream);
     video.play();
+	
 }
  
 function videoError(e) {
@@ -66,6 +102,13 @@ var pic = {
 			changeColor();
         };
 		pic.img.src = pic.frame.dataUri;
+		$('#picture')[0].style.display = "inline";
+		$('#colors')[0].style.display = "inline";
+		
+		var bodi = $('html, body');
+		bodi.animate({
+        scrollTop: $("#picture").offset().top
+		}, 500);
       }
       /*
       // make ajax call to get image data url
@@ -85,6 +128,7 @@ var pic = {
 };
 function setColor(color) {
 	var canvas = $('#picture')[0]
+	if(!pic.img) return canvas;
 	var context = canvas.getContext('2d');
 	//clear pic
 	context.clearRect(0, 0, canvas.width, canvas.height);
@@ -100,13 +144,29 @@ function setColor(color) {
 function changeColor() {
 	var rgb = hexToRgb($('#color')[0].value);
 	var alpha = $('#alpha')[0].value;
-	var enabled = $('#colorEnabled')[0].checked;
-	var color = enabled ? "rgba(" + rgb.r + "," + rgb.g + "," + rgb.b + "," + alpha + ")" : "rgba(0,0,0,0)";
-	var canvas = setColor(color);
+	var colorEnabled = $('#colorEnabled')[0].checked;
+	if (colorEnabled) {
+		$('#colorComplete')[0].style.display = 'block';
+	} else {
+		$('#colorComplete')[0].style.display = 'none';
+	}
+	var staticColor = $('#colorModeStatic')[0].checked;
+	var accelColor = $('#colorModeAccelerometer')[0].checked;
 	
-	var dlButton = $('#download-button')[0];
-	dlButton.href = canvas.toDataURL('image/jpeg');
-	dlButton.style.display = 'block';
+	if (staticColor){
+		$('#colorPicker')[0].style.display = "block";
+	} else {
+		$('#colorPicker')[0].style.display = "none";
+	}
+	
+	if (staticColor){
+		var color = colorEnabled ? "rgba(" + rgb.r + "," + rgb.g + "," + rgb.b + "," + alpha + ")" : "rgba(0,0,0,0)";
+		var canvas = setColor(color);
+		
+		var dlButton = $('#download-button')[0];
+		dlButton.href = canvas.toDataURL('image/jpeg');
+		dlButton.style.display = 'block';
+	}
 }
 
 
@@ -118,4 +178,8 @@ function hexToRgb(hex) {
         g: parseInt(result[2], 16),
         b: parseInt(result[3], 16)
     } : null;
+}
+
+function map_range(val, low1, high1, low2, high2) {
+    return low2 + (high2 - low2) * (val - low1) / (high1 - low1);
 }

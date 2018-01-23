@@ -15,34 +15,46 @@
 	<link rel="stylesheet" href="https://cdn.rawgit.com/necolas/normalize.css/master/normalize.css">
 	<link rel="stylesheet" href="https://cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css">
 	<link rel="stylesheet" href="style.css"/>
+	<script defer src="https://use.fontawesome.com/releases/v5.0.4/js/all.js"></script>
 
   </head>
   <body>
 	<div class="container" id="page">
-		<h1>Exchange-a-gram</h1>
-		<h2>not an Instagram clone</h2>
 		<video id="webcam"></video>
+		<div class="overlay">
+			<h1 align="center">Exchange-a-gram</h1>
+			<h2 align="center">not an Instagram clone</h2>
+		</div>
 		<br />
-		<button class="button fullscreenButton" onclick="pic.takePicture(document.getElementById('webcam'));">Take Picture</button>
+		<button class="button fullscreenButton" onclick="pic.takePicture(document.getElementById('webcam'));" style="vertical-align:middle"><i class="fas fa-camera fa-lg"></i> Take Picture</button>
 		<br />
-		<canvas id="picture"></canvas>
+		<canvas id="picture" style="display:none"></canvas>
 		<br />
 		<div class="container" id="colors">
 			<h4>Change Color of Picture</h4>
 			<!-- <label for="colorEnabled">Enable</label> -->
 			<input id="colorEnabled" class="color-input" type="checkbox" onchange="changeColor()" checked>Enable</input>
-			<label for="color">Color</label>
-			<input id="color" class="color-input" type="color" onchange="changeColor()"></input>
-			<label for="alpha">Transparancy</label>
-			<input id="alpha" class="color-input" type="range" min="0" max="1" step="0.01" onchange="changeColor()" value="0"></input>
-			<a class="button" id="download-button" href="#" download>Download Picture</a>
+			<div id="colorComplete">
+				<div id="colorChoice">
+					<input type="radio" name="colorMode" id="colorModeStatic" onclick="changeColor()" checked> Static<br>
+					<input type="radio" name="colorMode" id="colorModeAccelerometer" onclick="changeColor()"> Accelerometer<br>
+				</div>
+				<div id="colorPicker">
+					<label id="colorLabel" for="color">Color</label>
+					<input id="color" class="color-input" type="color" onchange="changeColor()"></input>
+				</div>
+				<label for="alpha">Transparancy</label>
+				<input id="alpha" class="color-input" type="range" min="0" max="1" step="0.01" onchange="changeColor()" value="0.5"></input>
+			</div>
+			<a class="button fullscreenButton" id="download-button" href="#" download><i class="fas fa-download fa-lg"></i> Download Picture</a>
 
 		</div>
 	</div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <!--
+    <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<!--
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
     -->
