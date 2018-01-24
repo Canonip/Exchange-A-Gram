@@ -28,7 +28,7 @@ function main() {
 		$('#colors')[0].style.display = "none";
 	} else {
 		$('#picture')[0].style.display = "inline";
-		$('#colors')[0].style.display = "inline";
+		$('#colors')[0].style.display = "block";
 
 	}
 	
@@ -103,7 +103,7 @@ var pic = {
         };
 		pic.img.src = pic.frame.dataUri;
 		$('#picture')[0].style.display = "inline";
-		$('#colors')[0].style.display = "inline";
+		$('#colors')[0].style.display = "block";
 		
 		var bodi = $('html, body');
 		bodi.animate({
